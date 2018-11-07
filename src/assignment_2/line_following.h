@@ -23,6 +23,12 @@ namespace assignment_2
   {
     private:
       
+       enum SideEnum
+      {
+        None,
+        Left,
+        Right
+      };
       sensor_msgs::LaserScan scan_;
       ros::Subscriber subscriber_;
       ros::NodeHandle n_;
@@ -30,7 +36,7 @@ namespace assignment_2
       std::string speeds_topic_;
       ros::Publisher cmd_vel_pub_;
       bool firstTime;
-      int side;
+      SideEnum side;
       
     public:
     
