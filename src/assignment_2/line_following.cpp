@@ -25,8 +25,9 @@ namespace assignment_2
         "Usage : assignment_2 robot <robot_id> <laser_id>");
       exit(0);
     }
-		side = None;
-		firstTime = true;
+	  
+    side = None;
+    firstTime = true;
 
     laser_topic_ = std::string("/") + std::string(argv[1]) + std::string("/") + std::string(argv[2]);
     speeds_topic_ = std::string("/") + std::string(argv[1]) + std::string("/cmd_vel");
@@ -55,22 +56,21 @@ namespace assignment_2
     float distance_right = FLT_MAX; 
     float distance_left = FLT_MAX;
   
-	// Parametros a aplicar ao robot
+    // Parametros a aplicar ao robot
 	
     float distance = 0.0;
     float angle = 0.0;
     float alpha = 0.0;
 	
-	// Variavel side é = None se ainda nao tiver tocado numa parede,
-	// = Left se tiver tocado com o lado esquerdo
-	// = Right se tiver tocado com o lado direito
+    // Variavel side é = None se ainda nao tiver tocado numa parede,
+    // = Left se tiver tocado com o lado esquerdo
+    // = Right se tiver tocado com o lado direito
 
     for(unsigned int i = 0; i < scan_.ranges.size(); i++)
     {
         float sensor_dist = scan_.ranges[i];
         float sensor_angle = -100.0 + radToDeg(scan_.angle_increment) * i;
     
-   
 		if(sensor_angle >= -100 && sensor_angle <= 0) 
 		{
 			if(sensor_dist < distance_right && side != Left) // ignora caso esteja a prioritizar o lado esquerdo
@@ -124,19 +124,17 @@ namespace assignment_2
 	cout << "------------------------------------" << endl;
 
 	
-    if(distance <= scan_.range_max) // Se estiver a tocar numa parede
+    	if(distance <= scan_.range_max) // Se estiver a tocar numa parede
 	{
 		cmd.linear.x = 0.4;
 		cmd.angular.z = (offset * 15 * (cos(degToRad(alpha)) - (distance - 1.2))) * cmd.linear.x;
-    }
-    else
+   	}
+   	else
 	{
 		cmd.linear.x = 0.4;
 		cmd.angular.z = 0.1;
+  	}
 
-		//cmd.angular.z = 0.02;
+    	 cmd_vel_pub_.publish(cmd);
     }
-
-    cmd_vel_pub_.publish(cmd);
-  }
 }
