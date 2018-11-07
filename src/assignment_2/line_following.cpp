@@ -25,7 +25,7 @@ namespace assignment_2
         "Usage : assignment_2 robot <robot_id> <laser_id>");
       exit(0);
     }
-		side = 0;
+		side = None;
 		firstTime = true;
 
     laser_topic_ = std::string("/") + std::string(argv[1]) + std::string("/") + std::string(argv[2]);
@@ -61,9 +61,9 @@ namespace assignment_2
     float angle = 0.0;
     float alpha = 0.0;
 	
-	// Variavel side é = 0 se ainda nao tiver tocado numa parede,
-	// = 1 se tiver tocado com o lado esquerdo
-	// = 2 se tiver tocado com o lado direito
+	// Variavel side é = None se ainda nao tiver tocado numa parede,
+	// = Left se tiver tocado com o lado esquerdo
+	// = Right se tiver tocado com o lado direito
 
     for(unsigned int i = 0; i < scan_.ranges.size(); i++)
     {
@@ -73,7 +73,7 @@ namespace assignment_2
    
 		if(sensor_angle >= -100 && sensor_angle <= 0) 
 		{
-			if(sensor_dist < distance_right && side != 1) // ignora caso esteja a prioritizar o lado esquerdo
+			if(sensor_dist < distance_right && side != Left) // ignora caso esteja a prioritizar o lado esquerdo
 			{
 				distance_right = sensor_dist;
 				angle = sensor_angle;
@@ -81,7 +81,7 @@ namespace assignment_2
 		}
 		else if(sensor_angle > 0 && sensor_angle <= 100) 
 		{
-			if(sensor_dist < distance_left && side != 2) // ignora caso esteja a prioritizar o lado direito
+			if(sensor_dist < distance_left && side != Right) // ignora caso esteja a prioritizar o lado direito
 			{
 				distance_left = sensor_dist;
 				angle = sensor_angle;
@@ -94,33 +94,32 @@ namespace assignment_2
 
 	// Se for a primeira vez que tocou numa parede, determina qual o lado que tocou e passa a prioritizar esse lado
 	
-	if(distance != FLT_MAX && firstTime && side == 0)
+	if(distance != FLT_MAX && firstTime && side == None)
 	{
 		firstTime = false;
 		if(distance == distance_left)
 		{
-			side = 1;
+			side = Left;
 		}
 		else {
-			side = 2;
+			side = Right;
 		}
 	}
 	
 	alpha = abs(angle);
 	
 
-	float offset = 15;
-	if(side == 0 || side == 1)
+	float offset = 1;
+	if(side == None || side == Left)
 	{
-		offset = -15;
+		offset = -1;
 	}
 	
 	// DEBUG
 	
 	cout << "RIGHT ? " << side << endl;
-	cout << "DISTANCE:" << distance << endl;
+	cout << "DISTANCE: " << distance << endl;
 	cout << "ALPHA: " << alpha << endl;
-	cout << "OFFSET: " << offset << endl;
 		
 	cout << "------------------------------------" << endl;
 
@@ -128,7 +127,7 @@ namespace assignment_2
     if(distance <= scan_.range_max) // Se estiver a tocar numa parede
 	{
 		cmd.linear.x = 0.4;
-		cmd.angular.z = (offset * (cos(degToRad(alpha)) - (distance - 1.2))) * cmd.linear.x;
+		cmd.angular.z = (offset * 15 * (cos(degToRad(alpha)) - (distance - 1.2))) * cmd.linear.x;
     }
     else
 	{
