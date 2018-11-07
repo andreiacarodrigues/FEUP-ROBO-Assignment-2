@@ -22,6 +22,7 @@ Copy the files in the folder stdr_resources/maps to the stdr_simulator package m
 Copy the files in the folder stdr_resources/robot to the stdr_simulator package robots folder (stdr_simulator/stdr_resources/resources/robots).
 
 The launcher files can be copied from the stdr_resources/launchers to the package folder and executed from there.
+In alternative you can copy them to the stdr_simulator/stdr_launchers/launch folder.
 
 ### How to compile:
 Go to the package folder, open the terminal and execute the following commands:
@@ -32,6 +33,15 @@ source devel/setup.bash
 
 ### How to execute:
 In the package folder open two terminals. The first one will run the stdr launcher with the selected map:
+
+If they're in the package folder:
+```
+roslaunch v_map_going_left.launch <-- V map with the robot following the wall using the left side of the sensor
+roslaunch v_map_going_right.launch <-- V map with the robot following the wall using the right side of the sensor
+roslaunch w_map_going_left.launch <--  W map with the robot following the wall using the left side of the sensor
+roslaunch w_map_going_right.launch <--  W map with the robot following the wall using the right side of the sensor
+```
+If they're in the stdr_launchers folder:
 ```
 roslaunch stdr_launchers v_map_going_left.launch <-- V map with the robot following the wall using the left side of the sensor
 roslaunch stdr_launchers v_map_going_right.launch <-- V map with the robot following the wall using the right side of the sensor
