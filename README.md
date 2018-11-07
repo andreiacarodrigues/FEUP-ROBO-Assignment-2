@@ -31,7 +31,7 @@ source devel/setup.bash
 ```
 
 ### How to execute:
-In the package open two terminals. The first one will run the stdr launcher with the selected map:
+In the package folder open two terminals. The first one will run the stdr launcher with the selected map:
 ```
 roslaunch stdr_launchers v_map_going_left.launch <-- V map with the robot following the wall using the left side of the sensor
 roslaunch stdr_launchers v_map_going_right.launch <-- V map with the robot following the wall using the right side of the sensor
