@@ -4,7 +4,9 @@ Authors: Andreia Rodrigues (up201404691) and Tiago Filipe (up201610655)
 
 ### Requirements:
 Ubuntu 16.04 LTS - https://www.ubuntu.com/download/desktop
+
 ROS Kinetic - http://wiki.ros.org/kinetic/Installation/Ubuntu
+
 STDR package - http://wiki.ros.org/stdr_simulator/Tutorials/Set%20up%20STDR%20Simulator
 
 ### Directory structure:
@@ -16,7 +18,9 @@ catkin_create_pkg assignment_2
 The src folder in this zip file should replace the newly created package src folder.
 
 Copy the files in the folder stdr_resources/maps to the stdr_simulator package maps folder (stdr_simulator/stdr_resources/maps).
+
 Copy the files in the folder stdr_resources/robot to the stdr_simulator package robots folder (stdr_simulator/stdr_resources/resources/robots).
+
 The launcher files can be copied from the stdr_resources/launchers to the package folder and executed from there.
 
 ### How to compile:
